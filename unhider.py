@@ -8,8 +8,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
-import win32api
-import os
+import win32api # library for getting drive letters
+import os 
 
 class Ui_FolderUnhider(object):
     def setupUi(self, FolderUnhider):
@@ -53,10 +53,22 @@ class Ui_FolderUnhider(object):
         # check if button unhide is clicked, call function
         self.unhideButton.clicked.connect(self.processFunc)
 
+    # process function
     def processFunc(self):
         # get choosen drive letter
         drive = self.selectDrives.currentText()
+
+        # run windows command to change the folder and files attributes (to show hidden files/folder)
         os.system("attrib -h -r -s /s /d "+drive+"*.* ")
+
+        self.alertBox("Success") # alert message
+
+    # create message box function
+    def alertBox(self,msg):
+        msgBox = QtGui.QMessageBox() 
+        msgBox.setWindowTitle("Alert");
+        msgBox.setText(msg);
+        msgBox.exec_();
 
     def retranslateUi(self, FolderUnhider):
         FolderUnhider.setWindowTitle(QtGui.QApplication.translate("FolderUnhider", "Folder Unhider", None, QtGui.QApplication.UnicodeUTF8))

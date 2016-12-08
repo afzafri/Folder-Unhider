@@ -26,8 +26,9 @@ So, the purpose of this little programs is to make it easy for computer users to
 - Python 2.7: https://wiki.qt.io/PySide
 - PySide QT Binding: https://www.python.org/download/releases/2.7/
 
-# Note
+## Note
 - The GUI was designed using QT Designer. I have include the .ui files inside the /res directory
+- The python script is "freezed" into Windows Executable (.exe) file using PyInstaller: http://www.pyinstaller.org/
 
 # License
 This project is under GNU GENERAL PUBLIC license, please look at the `LICENSE` file

@@ -11,13 +11,13 @@ from PySide import QtCore, QtGui
 import win32api # library for getting drive letters
 import os 
 
-class Ui_FolderUnhider(object):
-    def setupUi(self, FolderUnhider):
-        FolderUnhider.setObjectName("FolderUnhider")
-        FolderUnhider.resize(211, 103)
-        FolderUnhider.setMinimumSize(QtCore.QSize(211, 103))
-        FolderUnhider.setMaximumSize(QtCore.QSize(211, 103))
-        self.formLayoutWidget = QtGui.QWidget(FolderUnhider)
+class Ui_FolderUnhide(object):
+    def setupUi(self, FolderUnhide):
+        FolderUnhide.setObjectName("FolderUnhide")
+        FolderUnhide.resize(211, 103)
+        FolderUnhide.setMinimumSize(QtCore.QSize(211, 103))
+        FolderUnhide.setMaximumSize(QtCore.QSize(211, 103))
+        self.formLayoutWidget = QtGui.QWidget(FolderUnhide)
         self.formLayoutWidget.setGeometry(QtCore.QRect(10, 10, 191, 41))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtGui.QFormLayout(self.formLayoutWidget)
@@ -33,15 +33,15 @@ class Ui_FolderUnhider(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_2)
-        self.unhideButton = QtGui.QPushButton(FolderUnhider)
+        self.unhideButton = QtGui.QPushButton(FolderUnhide)
         self.unhideButton.setGeometry(QtCore.QRect(70, 50, 75, 23))
         self.unhideButton.setObjectName("unhideButton")
-        self.label = QtGui.QLabel(FolderUnhider)
+        self.label = QtGui.QLabel(FolderUnhide)
         self.label.setGeometry(QtCore.QRect(60, 80, 91, 21))
         self.label.setObjectName("label")
 
-        self.retranslateUi(FolderUnhider)
-        QtCore.QMetaObject.connectSlotsByName(FolderUnhider)
+        self.retranslateUi(FolderUnhide)
+        QtCore.QMetaObject.connectSlotsByName(FolderUnhide)
 
          # get string of drives letters
         drives = win32api.GetLogicalDriveStrings() 
@@ -70,20 +70,20 @@ class Ui_FolderUnhider(object):
         msgBox.setText(msg);
         msgBox.exec_();
 
-    def retranslateUi(self, FolderUnhider):
-        FolderUnhider.setWindowTitle(QtGui.QApplication.translate("FolderUnhider", "Folder Unhider", None, QtGui.QApplication.UnicodeUTF8))
-        FolderUnhider.setWindowIcon(QtGui.QIcon("./res/icon.ico"))
-        self.label_2.setText(QtGui.QApplication.translate("FolderUnhider", "Select Drive Letter: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.unhideButton.setText(QtGui.QApplication.translate("FolderUnhider", "Unhide!", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("FolderUnhider", "Afif Zafri © 2016", None, QtGui.QApplication.UnicodeUTF8))
+    def retranslateUi(self, FolderUnhide):
+        FolderUnhide.setWindowTitle(QtGui.QApplication.translate("FolderUnhide", "Show My Files", None, QtGui.QApplication.UnicodeUTF8))
+        FolderUnhide.setWindowIcon(QtGui.QIcon("./res/icon.ico"))
+        self.label_2.setText(QtGui.QApplication.translate("FolderUnhide", "Select Drive Letter: ", None, QtGui.QApplication.UnicodeUTF8))
+        self.unhideButton.setText(QtGui.QApplication.translate("FolderUnhide", "Unhide!", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("FolderUnhide", "Afif Zafri © 2016", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
-    FolderUnhider = QtGui.QDialog()
-    ui = Ui_FolderUnhider()
-    ui.setupUi(FolderUnhider)
-    FolderUnhider.show()
+    FolderUnhide = QtGui.QDialog()
+    ui = Ui_FolderUnhide()
+    ui.setupUi(FolderUnhide)
+    FolderUnhide.show()
     sys.exit(app.exec_())
 

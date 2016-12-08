@@ -24,4 +24,4 @@ So, the purpose of this little programs is to make it easy for computer users to
 - PySide QT Binding: https://www.python.org/download/releases/2.7/
 
 # License
-This library is under MIT license, please look at the `LICENSE` file
+This project is under GNU GENERAL PUBLIC license, please look at the `LICENSE` file

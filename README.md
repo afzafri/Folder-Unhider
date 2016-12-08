@@ -11,8 +11,8 @@ So, the purpose of this little programs is to make it easy for computer users to
 ![alt tag](https://raw.githubusercontent.com/afzafri/Show-My-Files/master/res/ss.PNG)
 
 # Usage
-1. Method 1 - Windows Executeable
-  - Run the ```showme.exe``` windows executeable
+1. Method 1 - Windows Executable
+  - Run the ```showme.exe``` windows executable
   - Select your drive letters which you wish to unhide
   - Click Unhide button
   - note: This method does not require Python and PySide QT Binding installed.

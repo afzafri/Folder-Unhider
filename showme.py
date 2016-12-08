@@ -55,13 +55,28 @@ class Ui_FolderUnhide(object):
 
     # process function
     def processFunc(self):
+
+        # disabled input for safety precaution
+        self.selectDrives.setDisabled(True)
+        self.unhideButton.setDisabled(True)
+
+        # change cursor to loading 
+        QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+
         # get choosen drive letter
         drive = self.selectDrives.currentText()
 
         # run windows command to change the folder and files attributes (to show hidden files/folder)
         os.system("attrib -h -r -s /s /d "+drive+"*.* ")
 
-        self.alertBox("Success") # alert message
+        # restore the cursor
+        QtGui.QApplication.restoreOverrideCursor()
+
+        self.alertBox("Success") # alert success message
+
+        # enable back the input
+        self.selectDrives.setDisabled(False)
+        self.unhideButton.setDisabled(False)
 
     # create message box function
     def alertBox(self,msg):

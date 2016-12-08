@@ -7,6 +7,9 @@
 However, these steps may be a little bit complex for normal computer users or newbies. <br>
 So, the purpose of this little programs is to make it easy for computer users to unhide all the hidden files and folder within a single click away.
 
+# Screenshot
+![alt tag](https://raw.githubusercontent.com/afzafri/Show-My-Files/master/res/ss.PNG)
+
 # Usage
 1. Method 1 - Windows Executeable
   - Run the ```showme.exe``` windows executeable

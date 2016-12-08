@@ -10,6 +10,7 @@
 from PySide import QtCore, QtGui
 import win32api # library for getting drive letters
 import os 
+import subprocess
 
 class Ui_FolderUnhide(object):
     def setupUi(self, FolderUnhide):
@@ -55,7 +56,7 @@ class Ui_FolderUnhide(object):
 
     # process function
     def processFunc(self):
-
+        
         # disabled input for safety precaution
         self.selectDrives.setDisabled(True)
         self.unhideButton.setDisabled(True)
@@ -67,7 +68,7 @@ class Ui_FolderUnhide(object):
         drive = self.selectDrives.currentText()
 
         # run windows command to change the folder and files attributes (to show hidden files/folder)
-        os.system("attrib -h -r -s /s /d "+drive+"*.* ")
+        os.popen("attrib -h -r -s /s /d "+drive+"*.* ")
 
         # restore the cursor
         QtGui.QApplication.restoreOverrideCursor()
@@ -77,6 +78,7 @@ class Ui_FolderUnhide(object):
         # enable back the input
         self.selectDrives.setDisabled(False)
         self.unhideButton.setDisabled(False)
+        
 
     # create message box function
     def alertBox(self,msg):

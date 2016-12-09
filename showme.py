@@ -11,6 +11,7 @@ from PySide import QtCore, QtGui
 import win32api # library for getting drive letters
 import os # library for running os console command
 import res_rc # import resource file
+from threading import Thread # to create new Thread, for running windows command
 
 class Ui_FolderUnhide(object):
     def setupUi(self, FolderUnhide):
@@ -65,6 +66,7 @@ class Ui_FolderUnhide(object):
                     color: #212121;
                     font-size: 13px;
                     font-weight: bold;
+                    background: rgba(0, 0, 0, 0); 
                 }
                 QPushButton {
                     color: white;
@@ -122,34 +124,49 @@ class Ui_FolderUnhide(object):
     # process function
     def processFunc(self):
         
-        # disabled input for safety precaution
-        self.selectDrives.setDisabled(True)
-        self.unhideButton.setDisabled(True)
-
-        # change cursor to loading 
-        QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-
         # get choosen drive letter
         drive = self.selectDrives.currentText()
 
-        # run windows command to change the folder and files attributes (to show hidden files/folder)
-        os.popen("attrib -h -r -s /s /d "+drive+"*.* ")
+        # change cursor to loading 
+        QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        # disabled input for safety precaution
+        self.selectDrives.setDisabled(True)
+        self.unhideButton.setDisabled(True)
+        
+        # create new thread
+        t = Thread(target = lambda: self.startProcess(drive) )
+        # start thread, run the command
+        t.start()
+        # wait for thread to finish. note: this will block calling thread, so GUI still will freeze/hang :(
+        t.join() 
 
         # restore the cursor
         QtGui.QApplication.restoreOverrideCursor()
-
         self.alertBox("Success") # alert success message
-
         # enable back the input
         self.selectDrives.setDisabled(False)
         self.unhideButton.setDisabled(False)
+
+    def startProcess(self,drive):
+        # run windows command to change the folder and files attributes (to show hidden files/folder)
+        os.popen("attrib -h -r -s /s /d "+drive+"*.* ")
 
     # create message box function
     def alertBox(self,msg):
         msgBox = QtGui.QMessageBox() 
         msgBox.setWindowTitle("Alert")
         msgBox.setText(msg)
-        msgBox.setStyleSheet("background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e6fcff, stop: 1 #66edff);")
+        msgBox.setStyleSheet("""
+                            QWidget {
+                               background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e6fcff, stop: 1 #66edff);
+                            }
+                            QLabel {
+                                color: #212121;
+                                font-size: 13px;
+                                font-weight: bold;
+                                background: rgba(0, 0, 0, 0); 
+                            }
+                            """)
         msgBox.exec_()
 
     def retranslateUi(self, FolderUnhide):

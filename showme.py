@@ -132,6 +132,7 @@ class Ui_FolderUnhide(object):
         # disabled input for safety precaution
         self.selectDrives.setDisabled(True)
         self.unhideButton.setDisabled(True)
+        self.refreshList.setDisabled(True)
         
         # create new thread
         t = Thread(target = lambda: self.startProcess(drive) )
@@ -146,6 +147,7 @@ class Ui_FolderUnhide(object):
         # enable back the input
         self.selectDrives.setDisabled(False)
         self.unhideButton.setDisabled(False)
+        self.refreshList.setDisabled(False)
 
     def startProcess(self,drive):
         # run windows command to change the folder and files attributes (to show hidden files/folder)

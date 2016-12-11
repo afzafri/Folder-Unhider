@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Afif\Desktop\Python\Folder Unhide\res\showme.ui'
 #
-# Created: Sun Dec 11 16:34:39 2016
+# Created: Sun Dec 11 18:15:59 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -57,11 +57,15 @@ class Ui_FolderUnhide(object):
         self.refreshList.setObjectName("refreshList")
         self.horizontalLayout.addWidget(self.refreshList)
         self.progressBar = QtGui.QProgressBar(FolderUnhide)
-        self.progressBar.setGeometry(QtCore.QRect(10, 100, 111, 20))
-        self.progressBar.setObjectName("progressBar")
+        self.progressBar.setGeometry(QtCore.QRect(10, 100, 71, 20))
+        self.progressBar.setTextVisible(False)
         self.progressBar.setRange(0,1)
+        self.progressBar.setObjectName("progressBar")
+        self.delFiles = QtGui.QRadioButton(FolderUnhide)
+        self.delFiles.setGeometry(QtCore.QRect(50, 40, 191, 31))
+        self.delFiles.setObjectName("delFiles")
 
-         # include stylesheet 
+        # include stylesheet 
         styles = """QWidget {
                    background: QLinearGradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e6fcff, stop: 1 #66edff);
                 }
@@ -103,6 +107,12 @@ class Ui_FolderUnhide(object):
                     background-color:#dddddd;
                     border: 1px solid #dddddd;
                 }
+                QRadioButton {
+                    background: rgba(0, 0, 0, 0); 
+                    font-size: 13px;
+                    color: #212121;
+                    font-weight: bold;
+                }
 
             """
         # set stylesheet
@@ -137,13 +147,15 @@ class Ui_FolderUnhide(object):
         
         # get choosen drive letter
         drive = self.selectDrives.currentText()
-
+        # get delete file option radio status
+        radiostat = self.delFiles.isChecked()
+        
         self.onStart() # call function for disable button, loading cursor
 
-        self.newThread = processThread.ProcessThread(drive) # create new QThread
+        self.newThread = processThread.ProcessThread(drive,radiostat) # create new QThread
         self.newThread.finished.connect(self.onDone) # connect to finished() signal. When QThread finish, call onDone() function
         self.newThread.start() # start the thread
-
+        
     # function for disable button, when process start
     def onStart(self):
         # set progress bar to busy (pulse progress bar)
@@ -190,11 +202,13 @@ class Ui_FolderUnhide(object):
         FolderUnhide.setWindowIcon(QtGui.QIcon(":/res/icon.png"))
         self.unhideButton.setToolTip(QtGui.QApplication.translate("FolderUnhide", "Click to start", "Click to start", QtGui.QApplication.UnicodeUTF8))
         self.unhideButton.setText(QtGui.QApplication.translate("FolderUnhide", "Show Me!", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setToolTip(QtGui.QApplication.translate("FolderUnhide", "Remove all shortcut .ink", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setToolTip(QtGui.QApplication.translate("FolderUnhide", "Contact: FB: fb.me/afzafri, Twitter & Instagram: @afzafri", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("FolderUnhide", "Afif Zafri © 2016", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("FolderUnhide", "Select Drive Letter: ", None, QtGui.QApplication.UnicodeUTF8))
         self.selectDrives.setToolTip(QtGui.QApplication.translate("FolderUnhide", "Choose your drive letter", None, QtGui.QApplication.UnicodeUTF8))
         self.refreshList.setToolTip(QtGui.QApplication.translate("FolderUnhide", "Refresh drives list", None, QtGui.QApplication.UnicodeUTF8))
+        self.delFiles.setToolTip(QtGui.QApplication.translate("FolderUnhide", "Delete shortcuts (.lnk), autorun.inf, .ini files. These files are usually associate with the virus. WARNING!: This also might accidently delete some of your files, do it on your own risk.", None, QtGui.QApplication.UnicodeUTF8))
+        self.delFiles.setText(QtGui.QApplication.translate("FolderUnhide", "Delete suspicious files", None, QtGui.QApplication.UnicodeUTF8))
 
 if __name__ == "__main__":
     import sys

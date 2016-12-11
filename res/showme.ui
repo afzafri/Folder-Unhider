@@ -57,7 +57,7 @@
     </rect>
    </property>
    <property name="toolTip">
-    <string>Remove all shortcut .ink</string>
+    <string>Contact: FB: fb.me/afzafri, Twitter &amp; Instagram: @afzafri</string>
    </property>
    <property name="text">
     <string>Afif Zafri © 2016</string>
@@ -131,12 +131,31 @@
     <rect>
      <x>10</x>
      <y>100</y>
-     <width>111</width>
+     <width>71</width>
      <height>20</height>
     </rect>
    </property>
    <property name="value">
-    <number>24</number>
+    <number>0</number>
+   </property>
+   <property name="textVisible">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="delFiles">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>40</y>
+     <width>191</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Delete shortcuts (.lnk), autorun.inf, .ini files. These files are usually associate with the virus. WARNING!: This also might accidently delete some of your files, do it on your own risk.</string>
+   </property>
+   <property name="text">
+    <string>Delete suspicious files</string>
    </property>
   </widget>
  </widget>

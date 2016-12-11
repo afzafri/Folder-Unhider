@@ -12,11 +12,11 @@ So, the purpose of this little programs is to make it easy for computer users to
 
 # Usage
 1. Method 1 - Windows Executable
-  - Download the latest release from https://github.com/afzafri/Show-My-Files/releases/
+  - Download the latest release from https://github.com/afzafri/Show-My-Files/releases/latest
   - Run the ```showme.exe``` windows executable
   - Select your drive letters which you wish to unhide
   - Click Unhide button
-  - note: This method does not require Python and PySide QT Binding installed.
+  - note: This method does not require Python and PySide QT Binding installed, can be run on any Windows computers
   
 2. Method 2 - Python Script
   - cd into the project directory

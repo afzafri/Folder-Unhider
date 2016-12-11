@@ -173,11 +173,14 @@ class Ui_FolderUnhide(object):
         self.progressBar.setRange(0,1)
         # restore the cursor
         QtGui.QApplication.restoreOverrideCursor()
-        self.alertBox("Success") # alert success message
+        # alert success message
+        self.alertBox("Success") 
         # enable back the input
         self.selectDrives.setDisabled(False)
         self.unhideButton.setDisabled(False)
         self.refreshList.setDisabled(False)
+        # uncheck the radio button
+        self.delFiles.setChecked(False)
 
     # create message box function
     def alertBox(self,msg):

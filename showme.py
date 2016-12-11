@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\Afif\Desktop\Python\Folder Unhide\res\showme.ui'
 #
-# Created: Fri Dec 09 15:49:24 2016
+# Created: Sun Dec 11 16:34:39 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,13 +12,13 @@ import win32api # library for getting drive letters
 import res_rc # import resource file
 import processThread # import our QThread class, for running background process in new thread
 
-class Ui_FolderUnhide(object):   
+class Ui_FolderUnhide(object):
     def setupUi(self, FolderUnhide):
         FolderUnhide.setObjectName("FolderUnhide")
         FolderUnhide.setEnabled(True)
         FolderUnhide.resize(262, 124)
-        FolderUnhide.setMinimumSize(QtCore.QSize(211, 103))
-        FolderUnhide.setMaximumSize(QtCore.QSize(9999, 200))
+        FolderUnhide.setMinimumSize(QtCore.QSize(262, 124))
+        FolderUnhide.setMaximumSize(QtCore.QSize(262, 124))
         self.unhideButton = QtGui.QPushButton(FolderUnhide)
         self.unhideButton.setGeometry(QtCore.QRect(90, 70, 85, 23))
         self.unhideButton.setCursor(QtCore.Qt.PointingHandCursor)
@@ -56,6 +56,10 @@ class Ui_FolderUnhide(object):
         self.refreshList.setIconSize(QtCore.QSize(25, 25))
         self.refreshList.setObjectName("refreshList")
         self.horizontalLayout.addWidget(self.refreshList)
+        self.progressBar = QtGui.QProgressBar(FolderUnhide)
+        self.progressBar.setGeometry(QtCore.QRect(10, 100, 111, 20))
+        self.progressBar.setObjectName("progressBar")
+        self.progressBar.setRange(0,1)
 
          # include stylesheet 
         styles = """QWidget {
@@ -142,7 +146,9 @@ class Ui_FolderUnhide(object):
 
     # function for disable button, when process start
     def onStart(self):
-         # change cursor to loading 
+        # set progress bar to busy (pulse progress bar)
+        self.progressBar.setRange(0,0)
+        # change cursor to loading 
         QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         # disabled input for safety precaution
         self.selectDrives.setDisabled(True)
@@ -151,7 +157,9 @@ class Ui_FolderUnhide(object):
 
     # functiont to restore all disabled button, once process ended
     def onDone(self):
-         # restore the cursor
+        # restore the progress bar
+        self.progressBar.setRange(0,1)
+        # restore the cursor
         QtGui.QApplication.restoreOverrideCursor()
         self.alertBox("Success") # alert success message
         # enable back the input

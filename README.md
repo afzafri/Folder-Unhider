@@ -26,6 +26,7 @@ So, the purpose of this little programs is to make it easy for computer users to
 # Requirement (For developement)
 - Python 2.7: https://wiki.qt.io/PySide
 - PySide QT Binding: https://www.python.org/download/releases/2.7/
+- Pywin32 (win32api): https://sourceforge.net/projects/pywin32/ - note: some computer already have this installed when you installed Python. Just in case it doesn't, download here
 
 ## Note
 - The GUI was designed using QT Designer. I have include the .ui files inside the /res directory

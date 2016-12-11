@@ -9,11 +9,10 @@
 
 from PySide import QtCore, QtGui
 import win32api # library for getting drive letters
-import os # library for running os console command
 import res_rc # import resource file
-from threading import Thread # to create new Thread, for running windows command
+import processThread # import our QThread class, for running background process in new thread
 
-class Ui_FolderUnhide(object):
+class Ui_FolderUnhide(object):   
     def setupUi(self, FolderUnhide):
         FolderUnhide.setObjectName("FolderUnhide")
         FolderUnhide.setEnabled(True)
@@ -85,12 +84,20 @@ class Ui_FolderUnhide(object):
                     background-color: #00BCD4;
 
                 }
-                QPushButton:pressed{
+                QPushButton:pressed {
                     background-color: #009688;
+                }
+                QPushButton:disabled {
+                    background-color:#dddddd;
+                    border-color: #dddddd;
                 }
                 QComboBox {
                     border: 1px solid #00BCD4;
                     color: #212121;
+                }
+                QComboBox:disabled {
+                    background-color:#dddddd;
+                    border: 1px solid #dddddd;
                 }
 
             """
@@ -127,31 +134,30 @@ class Ui_FolderUnhide(object):
         # get choosen drive letter
         drive = self.selectDrives.currentText()
 
-        # change cursor to loading 
+        self.onStart() # call function for disable button, loading cursor
+
+        self.newThread = processThread.ProcessThread(drive) # create new QThread
+        self.newThread.finished.connect(self.onDone) # connect to finished() signal. When QThread finish, call onDone() function
+        self.newThread.start() # start the thread
+
+    # function for disable button, when process start
+    def onStart(self):
+         # change cursor to loading 
         QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         # disabled input for safety precaution
         self.selectDrives.setDisabled(True)
         self.unhideButton.setDisabled(True)
         self.refreshList.setDisabled(True)
-        
-        # create new thread
-        t = Thread(target = lambda: self.startProcess(drive) )
-        # start thread, run the command
-        t.start()
-        # wait for thread to finish. note: this will block calling thread, so GUI still will freeze/hang :(
-        t.join() 
 
-        # restore the cursor
+    # functiont to restore all disabled button, once process ended
+    def onDone(self):
+         # restore the cursor
         QtGui.QApplication.restoreOverrideCursor()
         self.alertBox("Success") # alert success message
         # enable back the input
         self.selectDrives.setDisabled(False)
         self.unhideButton.setDisabled(False)
         self.refreshList.setDisabled(False)
-
-    def startProcess(self,drive):
-        # run windows command to change the folder and files attributes (to show hidden files/folder)
-        os.popen("attrib -h -r -s /s /d "+drive+"*.* ")
 
     # create message box function
     def alertBox(self,msg):
